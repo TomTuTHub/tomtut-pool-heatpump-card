@@ -143,6 +143,18 @@ check("Freitext-Badge gerendert", () =>
 check("Luefter dreht bei 820 W (Schwelle 100)", () =>
   assert.ok(sr().querySelector(".fan-overlay.spinning"))
 );
+check("Luefter-Overlay auf das Artwork kalibriert", () => {
+  const style = sr().querySelector(".fan-overlay").getAttribute("style");
+  assert.match(style, /left:40%/);
+  assert.match(style, /top:51%/);
+  assert.match(style, /width:24%/);
+  assert.match(style, /--fan-ratio:1\.12/);
+});
+check("Luefterrad rotiert im SVG-Koordinatensystem", () => {
+  const svg = sr().querySelector(".fan-overlay svg");
+  assert.equal(svg.getAttribute("preserveAspectRatio"), "none");
+  assert.ok(svg.querySelector("g"), "rotierende <g>-Gruppe fehlt");
+});
 
 /* --- Powerbutton: Ausschalten nur mit Bestaetigung --- */
 calls.length = 0;

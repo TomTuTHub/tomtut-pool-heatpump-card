@@ -10,45 +10,49 @@
 
 import { LitElement, html, css, nothing } from "lit";
 
-/* Positions-/Darstellungs-Defaults (alle in % der Bildbreite/-hoehe) */
+/* Positions-/Darstellungs-Defaults (alle in % der Bildbreite/-hoehe).
+   Die Werte sind auf das mitgelieferte Artwork kalibriert: das Lueftergitter liegt
+   dort bei 28,2–51,9 % der Breite und 27,5–74,8 % der Hoehe, ist also perspektivisch
+   elliptisch — daher fan_ratio (Hoehe/Breite) statt eines runden Overlays. */
 const DEFAULTS = {
   /* Luefter-Overlay */
-  fan_top: 45,
-  fan_left: 50,
-  fan_size: 34,
+  fan_top: 51,
+  fan_left: 40,
+  fan_size: 24,
+  fan_ratio: 1.12,
   fan_speed: 60,
   fan_color: "black",
   fan_inactive: "gray",
   fan_power_threshold: 100,
   /* Powerbutton */
-  power_btn_top: 6,
-  power_btn_left: 5,
+  power_btn_top: 8,
+  power_btn_left: 4,
   power_btn_scale: 100,
   /* Stromverbrauch */
-  power_top: 6,
-  power_left: 50,
+  power_top: 10,
+  power_left: 84,
   power_scale: 95,
   power_box: true,
   power_color: "white",
   power_label: true,
   power_decimals: 0,
   /* Ist-Temperatur */
-  current_bottom: 6,
-  current_left: 28,
+  current_bottom: 8,
+  current_left: 15,
   current_scale: 100,
   current_box: true,
   current_color: "white",
   current_label: true,
   /* Soll-Temperatur */
-  target_bottom: 6,
-  target_left: 72,
+  target_bottom: 8,
+  target_left: 80,
   target_scale: 100,
   target_box: true,
   target_color: "white",
   target_label: true,
   target_step: 0.5,
   /* Freitext-Badge */
-  label_top: 18,
+  label_top: 3,
   label_left: 50,
   label_scale: 100,
   label_box: true,
@@ -310,9 +314,13 @@ class TomtutPoolHeatpumpCard extends LitElement {
                   class="fan-overlay ${fanActive ? "spinning" : this._v("fan_inactive") === "hidden" ? "hidden" : "idle"}"
                   style="top:${this._v("fan_top")}%; left:${this._v("fan_left")}%; width:${this._v(
                     "fan_size"
-                  )}%; --fan-dur:${fanDur}s; --fan-color:${fanColor};"
+                  )}%; --fan-dur:${fanDur}s; --fan-color:${fanColor}; --fan-ratio:${this._v(
+                    "fan_ratio"
+                  )};"
                 >
-                  <svg viewBox="0 0 40 40" .innerHTML="${FAN_SVG}"></svg>
+                  <svg viewBox="0 0 40 40" preserveAspectRatio="none">
+                    <g .innerHTML="${FAN_SVG}"></g>
+                  </svg>
                 </div>
               `
             : nothing}
@@ -460,17 +468,22 @@ class TomtutPoolHeatpumpCard extends LitElement {
     .bg { width: 100%; height: auto; display: block; }
 
     /* Luefter */
+    /* Hoehe/Breite ueber fan_ratio, damit das Overlay auf perspektivisch
+       elliptische Lueftergitter passt */
     .fan-overlay {
-      position: absolute; aspect-ratio: 1; pointer-events: none;
+      position: absolute; aspect-ratio: 1 / var(--fan-ratio, 1); pointer-events: none;
       transform: translate(-50%, -50%);
       color: var(--fan-color, #111);
       opacity: 0.3; filter: grayscale(1);
       transition: opacity 0.3s, filter 0.3s;
     }
     .fan-overlay svg { width: 100%; height: 100%; overflow: visible; }
+    /* Rotation im SVG-Koordinatensystem: preserveAspectRatio="none" staucht das
+       drehende Rad danach zur Ellipse — ein rotierender Container wuerde taumeln */
+    .fan-overlay svg g { transform-box: fill-box; transform-origin: center; }
     .fan-overlay.hidden { opacity: 0; }
     .fan-overlay.spinning { opacity: 0.9; filter: none; }
-    .fan-overlay.spinning svg { animation: fanSpin var(--fan-dur, 1s) linear infinite; }
+    .fan-overlay.spinning svg g { animation: fanSpin var(--fan-dur, 1s) linear infinite; }
     @keyframes fanSpin { to { transform: rotate(360deg); } }
 
     /* Powerbutton */
@@ -810,7 +823,8 @@ class TomtutPoolHeatpumpCardEditor extends LitElement {
               html`
                 ${this._slider("Von oben", "fan_top", 0, 100, "%", 0.5)}
                 ${this._slider("Von links", "fan_left", 0, 100, "%", 0.5)}
-                ${this._slider("Größe", "fan_size", 5, 80, "%", 0.5)}
+                ${this._slider("Breite", "fan_size", 5, 80, "%", 0.5)}
+                ${this._slider("Höhe/Breite", "fan_ratio", 0.5, 2, "", 0.02)}
               `
             )}
             ${this._section(
