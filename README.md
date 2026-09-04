@@ -5,6 +5,11 @@
 [![HA Version](https://img.shields.io/badge/Home%20Assistant-2026.3.0%2B-blue)](https://www.home-assistant.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+![Preview](waermepumpe_weiss.png)
+
+> Vorlaeufiges Bild: das mitgelieferte Artwork (Variante `weiss`). Ein echter Dashboard-Screenshot
+> folgt.
+
 Custom Lovelace Dashboard Card fuer **beliebige Pool-Waermepumpen**. Die Card ist **generisch**: sie
 bringt keine eigene Integration mit, sondern haengt an den Entities, die du ihr zuweist — egal ob die
 Waermepumpe ueber LocalTuya, Tuya Cloud, Modbus, MQTT oder eine Herstellerintegration in Home Assistant
@@ -109,8 +114,13 @@ Der visuelle Editor oeffnet sich automatisch.
 | `fan_speed` | `60` | Drehgeschwindigkeit `0`–`100` (0 = steht) |
 | `fan_inactive` | `gray` | Im Stillstand: `gray` oder `hidden` |
 | `fan_color` | `black` | `black` oder `white` |
-| `fan_top` / `fan_left` | `45` / `50` | Mittelpunkt in % (Bild) |
-| `fan_size` | `34` | Durchmesser in % der Bildbreite |
+| `fan_top` / `fan_left` | `51` / `40` | Mittelpunkt in % (Bild) |
+| `fan_size` | `24` | Breite in % der Bildbreite |
+| `fan_ratio` | `1.12` | Hoehe/Breite des Luefterrads — `1` = rund, groesser = hochovale Ellipse |
+
+Die Standardwerte sitzen auf dem Lueftergitter des mitgelieferten Artworks. Da das Geraet dort
+perspektivisch dargestellt ist, ist das Gitter kein Kreis, sondern eine Ellipse — dafuer ist
+`fan_ratio` da. Bei einem eigenen, frontal aufgenommenen Bild passt meist `fan_ratio: 1`.
 
 ### Positionen, Groessen, Farben
 
@@ -119,16 +129,16 @@ per Schieberegler einstellbar.
 
 | Option | Standard | Beschreibung |
 |---|---|---|
-| `power_btn_top` / `power_btn_left` / `power_btn_scale` | `6` / `5` / `100` | Powerbutton |
-| `power_top` / `power_left` / `power_scale` | `6` / `50` / `95` | Stromverbrauch |
+| `power_btn_top` / `power_btn_left` / `power_btn_scale` | `8` / `4` / `100` | Powerbutton (oben links) |
+| `power_top` / `power_left` / `power_scale` | `10` / `84` / `95` | Stromverbrauch (oben rechts) |
 | `power_decimals` | `0` | Nachkommastellen der Watt-Anzeige |
 | `power_box` / `power_label` / `power_color` | `true` / `true` / `white` | Box, Einheit, Schriftfarbe |
-| `current_bottom` / `current_left` / `current_scale` | `6` / `28` / `100` | Ist-Temperatur |
+| `current_bottom` / `current_left` / `current_scale` | `8` / `15` / `100` | Ist-Temperatur (unten links) |
 | `current_box` / `current_label` / `current_color` | `true` / `true` / `white` | Box, Label, Schriftfarbe |
-| `target_bottom` / `target_left` / `target_scale` | `6` / `72` / `100` | Soll-Temperatur |
+| `target_bottom` / `target_left` / `target_scale` | `8` / `80` / `100` | Soll-Temperatur (unten rechts) |
 | `target_step` | aus Entity | Schrittweite der +/−-Tasten |
 | `target_box` / `target_label` / `target_color` | `true` / `true` / `white` | Box, Label, Schriftfarbe |
-| `label_top` / `label_left` / `label_scale` | `18` / `50` / `100` | Freitext-Badge |
+| `label_top` / `label_left` / `label_scale` | `3` / `50` / `100` | Freitext-Badge (oben mittig) |
 | `label_box` / `label_color` | `true` / `white` | Box, Schriftfarbe |
 
 ---
@@ -160,11 +170,15 @@ power_entity: sensor.shelly_waermepumpe_power
 switch_entity: switch.shelly_waermepumpe
 fan_entity: binary_sensor.waermepumpe_kompressor
 fan_source: entity
-image_variant: weiss
-fan_top: 34
-fan_left: 58
-fan_size: 28
+image_url: /local/meine_waermepumpe.png
+fan_top: 50
+fan_left: 50
+fan_size: 30
+fan_ratio: 1
 ```
+
+Das zweite Beispiel nutzt ein eigenes Bild — deshalb werden die Luefter-Position und `fan_ratio: 1`
+(rundes Gitter) mitgegeben. Mit dem mitgelieferten Artwork brauchst du diese Zeilen nicht.
 
 ---
 
