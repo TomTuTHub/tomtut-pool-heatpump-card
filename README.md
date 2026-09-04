@@ -5,7 +5,7 @@
 [![HA Version](https://img.shields.io/badge/Home%20Assistant-2026.3.0%2B-blue)](https://www.home-assistant.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-![Preview](waermepumpe_weiss.png)
+![Preview](https://raw.githubusercontent.com/TomTuTHub/tomtut-pool-heatpump-card/main/waermepumpe_weiss.png)
 
 > Vorlaeufiges Bild: das mitgelieferte Artwork (Variante `weiss`). Ein echter Dashboard-Screenshot
 > folgt.
