@@ -8,7 +8,7 @@ Thumbs.db
 *.swp
 *.swo
 
-# Build-Umgebung (die gebuendelte Card im Repo-Root wird bewusst mitgeliefert)
+# Build-Umgebung (die gebuendelte Card + Bilder in dist/ werden bewusst mitgeliefert)
 node_modules/
 package-lock.json
 *.log

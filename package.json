@@ -1,6 +1,6 @@
 {
   "name": "tomtut-pool-heatpump-card",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generische Lovelace Custom Card fuer Pool-Waermepumpen (Home Assistant)",
   "type": "module",
   "main": "tomtut-pool-heatpump-card.js",

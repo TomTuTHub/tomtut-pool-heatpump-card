@@ -5,7 +5,7 @@
 [![HA Version](https://img.shields.io/badge/Home%20Assistant-2026.3.0%2B-blue)](https://www.home-assistant.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-![Preview](https://raw.githubusercontent.com/TomTuTHub/tomtut-pool-heatpump-card/main/waermepumpe_weiss.png)
+![Preview](https://raw.githubusercontent.com/TomTuTHub/tomtut-pool-heatpump-card/main/dist/waermepumpe_weiss.png)
 
 > Vorlaeufiges Bild: das mitgelieferte Artwork (Variante `weiss`). Ein echter Dashboard-Screenshot
 > folgt.
@@ -65,7 +65,7 @@ Hintergrundbilder liegen damit automatisch am richtigen Platz und muessen nicht 
 
 ### Manuelle Installation
 
-1. `tomtut-pool-heatpump-card.js` und die drei PNG-Dateien (`waermepumpe_weiss.png`,
+1. Aus dem Ordner `dist/`: `tomtut-pool-heatpump-card.js` und die drei PNG-Dateien (`waermepumpe_weiss.png`,
    `waermepumpe_schwarz.png`, `waermepumpe_transparent.png`) herunterladen
 2. Alles nach `config/www/community/tomtut-pool-heatpump-card/` kopieren
 3. In HA: **Einstellungen → Dashboards → Ressourcen** → Ressource hinzufuegen:

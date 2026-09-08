@@ -43,7 +43,7 @@ const check = (name, fn) => {
   }
 };
 
-await import("../tomtut-pool-heatpump-card.js");
+await import("../dist/tomtut-pool-heatpump-card.js");
 
 /* --- Registrierung --- */
 check("Card-Element registriert", () =>
